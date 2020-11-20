@@ -61,12 +61,9 @@ class MainView extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var newItem = await Navigator.push(
+        onPressed: () {
+          Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddView()));
-          if (newItem != null) {
-            Provider.of<TodoState>(context, listen: false).addItem(newItem);
-          }
         },
         child: Icon(Icons.add_rounded),
         backgroundColor: Colors.red[500],

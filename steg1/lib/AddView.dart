@@ -15,7 +15,6 @@ class _AddViewState extends State<AddView> {
     myController.dispose();
     super.dispose();
   }
-  // Clean upp the controller when the page is closed
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +46,7 @@ class _AddViewState extends State<AddView> {
               icon: Icon(Icons.add_rounded),
               color: Colors.red[500],
               onPressed: () {
+                print('Saved');
                 addItem();
               },
             ),
@@ -60,14 +60,15 @@ class _AddViewState extends State<AddView> {
     final String userInput = myController.text;
     if (userInput.isNotEmpty) {
       TodoItem item = TodoItem(name: userInput);
-      Navigator.pop(context, userInput);
+      Provider.of<TodoState>(context, listen: false).addItem(item);
+      Navigator.pop(context);
     } else {
       _alertSnackbar(context);
     }
   }
 
   void _alertSnackbar(context) {
-    SnackBar snackbar = SnackBar(content: Text('Item can not be empty'));
+    SnackBar snackbar = SnackBar(content: Text('Todo can not be empty'));
     Scaffold.of(context).showSnackBar(snackbar);
   }
 }
