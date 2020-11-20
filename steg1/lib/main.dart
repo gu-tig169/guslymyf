@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steg1/ItemList.dart';
 import 'AddView.dart';
 import 'model.dart';
 import 'package:provider/provider.dart';
@@ -60,6 +61,7 @@ class MainView extends StatelessWidget {
           )
         ],
       ),
+      body: ItemList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

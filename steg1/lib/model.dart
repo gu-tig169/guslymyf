@@ -20,8 +20,8 @@ class TodoState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(int index) {
-    _todoList.remove(index);
+  void removeItem(TodoItem item) {
+    _todoList.remove(item);
     notifyListeners();
   }
 

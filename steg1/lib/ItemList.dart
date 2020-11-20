@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'model.dart';
 
-// Här ska klassen erhålla funktion för checkbox och remove funktion
 class ItemList extends StatelessWidget {
   final bool _checked = false;
   @override
   Widget build(BuildContext context) {
     return Consumer<TodoState>(
-        builder: (context, todoState, child) => ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => Divider(),
+        builder: (context, todoState, child) => ListView.builder(
+            //separatorBuilder: (BuildContext context, int index) => Divider(),
             itemCount: todoState.list.length,
             itemBuilder: (BuildContext context, index) {
               return Card(
@@ -24,9 +23,9 @@ class ItemList extends StatelessWidget {
                     ),
                     controlAffinity: ListTileControlAffinity.leading,
                     secondary: IconButton(
-                        icon: Icon(Icons.clear_sharp),
+                        icon: Icon(Icons.delete_forever_rounded),
                         onPressed: () {
-                          todoState.removeItem(index);
+                          todoState.removeItem(todoState.list[index]);
                         }),
                     activeColor: Colors.red[500],
                   ));
