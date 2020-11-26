@@ -26,10 +26,11 @@ class _AddViewState extends State<AddView> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(height: 100),
-            Text('What do you want to add?', style: TextStyle(fontSize: 40)),
+            Text('What do you want to add?',
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w600)),
             Container(height: 30),
             Container(
               margin: EdgeInsets.only(left: 8.0, right: 8.0),

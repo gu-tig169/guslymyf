@@ -29,38 +29,10 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Tasks'),
-        centerTitle: true,
-        backgroundColor: Colors.red[500],
-        actions: <Widget>[
-          PopupMenuButton<int>(
-            itemBuilder: (context) => <PopupMenuEntry<int>>[
-              PopupMenuItem(
-                value: 1,
-                child: Text(
-                  'All',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
-                ),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Text(
-                  'Done',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
-                ),
-              ),
-              PopupMenuItem(
-                value: 3,
-                child: Text(
-                  'Undone',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
-                ),
-              ),
-            ],
-            icon: Icon(Icons.more_vert_rounded),
-          )
-        ],
-      ),
+          title: Text('All Tasks'),
+          centerTitle: true,
+          backgroundColor: Colors.red[500],
+          actions: [_popupMenuButton()]),
       body: ItemList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -71,6 +43,33 @@ class MainView extends StatelessWidget {
         backgroundColor: Colors.red[500],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget _popupMenuButton() {
+    return Consumer<TodoState>(
+      builder: (context, todoState, child) {
+        return PopupMenuButton(
+          onSelected: (newChoice) {
+            todoState.setChoiceValue(newChoice);
+            todoState.filter();
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(
+                value: 'All',
+                child: Text('All',
+                    style: TextStyle(color: Colors.black, fontSize: 15))),
+            PopupMenuItem(
+                value: 'Done',
+                child: Text('Done',
+                    style: TextStyle(color: Colors.black, fontSize: 15))),
+            PopupMenuItem(
+                value: 'Undone',
+                child: Text('Undone',
+                    style: TextStyle(color: Colors.black, fontSize: 15))),
+          ],
+        );
+      },
     );
   }
 }

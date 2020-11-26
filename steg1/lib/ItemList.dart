@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'model.dart';
 
 class ItemList extends StatelessWidget {
-  final bool _checked = false;
   @override
   Widget build(BuildContext context) {
     return Consumer<TodoState>(
@@ -15,8 +14,12 @@ class ItemList extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   child: CheckboxListTile(
-                    value: _checked,
-                    onChanged: (bool value) {},
+                    value: todoState.getDone(index),
+                    onChanged: (bool isDone) {
+                      todoState.setValue(index, isDone);
+
+                      // statet på checkboxen inte följer med
+                    },
                     title: Text(
                       todoState.list[index].name,
                       style: TextStyle(fontSize: 20),
