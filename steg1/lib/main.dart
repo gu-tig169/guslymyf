@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   var todoState = TodoState();
+  todoState.getList();
   runApp(
     ChangeNotifierProvider(
       create: (context) => todoState,

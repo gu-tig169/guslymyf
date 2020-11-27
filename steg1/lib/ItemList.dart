@@ -24,7 +24,10 @@ class ItemList extends StatelessWidget {
                     ),
                     controlAffinity: ListTileControlAffinity.leading,
                     secondary: IconButton(
-                        icon: Icon(Icons.delete_forever_rounded),
+                        icon: Icon(
+                          Icons.delete_outline_outlined,
+                          color: Colors.red[500],
+                        ),
                         onPressed: () {
                           todoState.removeItem(todoState.list[index]);
                         }),

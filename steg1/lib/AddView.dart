@@ -25,7 +25,8 @@ class _AddViewState extends State<AddView> {
         backgroundColor: Colors.red[500],
       ),
       body: Center(
-        child: Column(
+        child: SingleChildScrollView(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(height: 100),
@@ -38,7 +39,7 @@ class _AddViewState extends State<AddView> {
                 controller: myController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'e.g.Tasks',
+                  labelText: 'Task',
                 ),
               ),
             ),
@@ -52,19 +53,19 @@ class _AddViewState extends State<AddView> {
               },
             ),
           ],
-        ),
+        )),
       ),
     );
   }
 
   void addItem() {
     final String userInput = myController.text;
-    if (userInput.isNotEmpty) {
+    if (userInput.isEmpty) {
+      _alertSnackbar(context);
+    } else {
       TodoItem item = TodoItem(name: userInput);
       Provider.of<TodoState>(context, listen: false).addItem(item);
       Navigator.pop(context);
-    } else {
-      _alertSnackbar(context);
     }
   }
 
