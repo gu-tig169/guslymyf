@@ -1,18 +1,40 @@
 import 'package:flutter/material.dart';
+import 'Api.dart';
 
 class TodoItem {
+  String todoId;
   String name;
   bool isDone;
 
-  TodoItem({this.name, this.isDone = false});
+  TodoItem({this.name, this.isDone = false, this.todoId});
 
   void isCompleted() {
     isDone = !isDone;
   }
+
+  static Map<String, dynamic> toJson(TodoItem item) {
+    return {
+      'title': item.name,
+      'done': item.isDone,
+    };
+  }
+
+  static TodoItem fromJson(Map<String, dynamic> json) {
+    return TodoItem(
+      todoId: json['id'],
+      name: json['title'],
+      isDone: json['done'],
+    );
+  }
 }
-// Kontruktor för att initera TodoItem instans
 
 class TodoState extends ChangeNotifier {
+  Future getList() async {
+    List<TodoItem> todoList = await Api.getTodoData();
+    _todoList = todoList;
+    notifyListeners();
+  }
+
   // Den vanliga listan
   List<TodoItem> _todoList = [];
 
@@ -26,20 +48,25 @@ class TodoState extends ChangeNotifier {
 
   bool getDone(index) => list[index].isDone;
 
-  void addItem(TodoItem item) {
-    _choice = 'All';
-    _todoList.add(item);
+  void setValue(index, bool isDone) async {
+    TodoItem item = list[index];
+
+    item.isCompleted();
+    Api.updateData(
+      item,
+      item.todoId,
+    );
     notifyListeners();
   }
 
-  void removeItem(TodoItem item) {
-    _todoList.remove(item);
-    notifyListeners();
+  void addItem(TodoItem item) async {
+    await Api.postData(item);
+    await getList();
   }
 
-  void setValue(index, bool isDone) {
-    list[index].isCompleted();
-    notifyListeners();
+  void removeItem(TodoItem item) async {
+    await Api.deleteData(item.todoId);
+    await getList();
   }
 
   List<TodoItem> _filterList;

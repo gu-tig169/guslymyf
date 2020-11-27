@@ -17,8 +17,6 @@ class ItemList extends StatelessWidget {
                     value: todoState.getDone(index),
                     onChanged: (bool isDone) {
                       todoState.setValue(index, isDone);
-
-                      // statet på checkboxen inte följer med
                     },
                     title: Text(
                       todoState.list[index].name,
