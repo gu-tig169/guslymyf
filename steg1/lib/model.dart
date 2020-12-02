@@ -71,7 +71,7 @@ class TodoState extends ChangeNotifier {
         style: TextStyle(
           color: Colors.grey,
           decoration: TextDecoration.lineThrough,
-          decorationColor: Colors.red[200],
+          decorationThickness: 2,
           fontSize: 20,
         ),
       );
