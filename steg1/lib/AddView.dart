@@ -20,57 +20,67 @@ class _AddViewState extends State<AddView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Tasks'),
+        title: Text('Create Task'),
         centerTitle: true,
         backgroundColor: Colors.red[500],
       ),
-      body: Center(
-        child: SingleChildScrollView(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(height: 100),
-            Text('What do you want to add?',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w600)),
-            Container(height: 30),
-            Container(
-              margin: EdgeInsets.only(left: 8.0, right: 8.0),
-              child: TextField(
-                controller: myController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Task',
+      body: Builder(
+        builder: (context) => Center(
+          child: SingleChildScrollView(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text('What do you want to add?',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600)),
+              Container(height: 30),
+              Container(
+                margin: EdgeInsets.only(left: 8.0, right: 8.0),
+                child: TextField(
+                  controller: myController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Task',
+                  ),
                 ),
               ),
-            ),
-            Container(height: 30),
-            IconButton(
-              icon: Icon(Icons.add_rounded),
-              color: Colors.red[500],
-              onPressed: () {
-                print('Saved');
-                addItem();
-              },
-            ),
-          ],
-        )),
+              Container(height: 40),
+              SizedBox(
+                width: 200.0,
+                height: 50,
+                child: RaisedButton(
+                  child: Text(
+                    'Add Task',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  color: Colors.red[500],
+                  onPressed: () {
+                    if (myController.text.isEmpty) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.red[500],
+                          content: Text(
+                            'Task can not be empty',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 15),
+                          )));
+                    } else {
+                      addItem();
+                    }
+                  },
+                ),
+              ),
+            ],
+          )),
+        ),
       ),
     );
   }
 
   void addItem() {
     final String userInput = myController.text;
-    if (userInput.isEmpty) {
-      _alertSnackbar(context);
-    } else {
-      TodoItem item = TodoItem(name: userInput);
-      Provider.of<TodoState>(context, listen: false).addItem(item);
-      Navigator.pop(context);
-    }
-  }
-
-  void _alertSnackbar(context) {
-    SnackBar snackbar = SnackBar(content: Text('Todo can not be empty'));
-    Scaffold.of(context).showSnackBar(snackbar);
+    TodoItem item = TodoItem(name: userInput);
+    Provider.of<TodoState>(context, listen: false).addItem(item);
+    Navigator.pop(context);
   }
 }

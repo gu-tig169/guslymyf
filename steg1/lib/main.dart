@@ -30,7 +30,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('All Tasks'),
+          title: Text('Tasks'),
           centerTitle: true,
           backgroundColor: Colors.red[500],
           actions: [_popupMenuButton()]),

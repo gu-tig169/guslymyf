@@ -59,6 +59,25 @@ class TodoState extends ChangeNotifier {
     notifyListeners();
   }
 
+  getTodos(index) {
+    if (list[index].isDone == false) {
+      return Text(list[index].name,
+          style: TextStyle(
+            fontSize: 20,
+          ));
+    } else {
+      return Text(
+        list[index].name,
+        style: TextStyle(
+          color: Colors.grey,
+          decoration: TextDecoration.lineThrough,
+          decorationColor: Colors.red[200],
+          fontSize: 20,
+        ),
+      );
+    }
+  }
+
   void addItem(TodoItem item) async {
     await Api.postData(item);
     await getList();
