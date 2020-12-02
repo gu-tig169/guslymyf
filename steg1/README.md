@@ -1,4 +1,4 @@
-# steg1
+# Simple Todo application
 
 A new Flutter project.
 
